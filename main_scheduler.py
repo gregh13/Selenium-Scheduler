@@ -24,6 +24,7 @@ while True:
 
     # Check if start time is reached
     if current_time_pacific >= start_time:
+        print(f"Time to start selenium: {current_time_pacific}")
         break
 
     # Print the current time for reference
@@ -71,6 +72,7 @@ next_week_box.click()
 time.sleep(1)
 
 # Wait for schedule to go live at 9:00am
+print("Waiting for schedule to go live at 9:00am")
 
 # Define the target time
 target_time = datetime.time(9, 0, 0)
@@ -91,6 +93,18 @@ while True:
 # Wait half a second as extra precaution, then refresh the page
 time.sleep(0.5)
 driver.refresh()
+
+# Temporary fix for time it takes page to load
+while True:
+    try:
+        driver.find_element(By.ID, "cell99")
+        print("Page loaded")
+        break
+    except:
+        print("Page not loaded")
+        time.sleep(.1)
+
+# Page is loaded, time to book hours
 
 # Hour slots of interest
 CELL_LISTS = [
@@ -122,7 +136,8 @@ for cell_list in CELL_LISTS:
             # Pop up alert did not appear, continue as normal
             continue
 
-time.sleep(10)
+# Keep browser open for any necessary manual changes to be made
+time.sleep(300)
 
 # Close the browser window
 driver.close()
