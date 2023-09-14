@@ -1,16 +1,39 @@
 # Env variables
 import os
 
-# Time precision and waiting
-import datetime
-import pytz
-import time
-
 # Selenium
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+
+# Time precision and waiting
+import datetime
+import pytz
+import time
+
+# Define the Pacific Time zone
+pacific_timezone = pytz.timezone('US/Pacific')
+
+# Define the start time for program
+start_time = datetime.time(8, 56, 0)
+
+while True:
+    # Get the current time in Pacific Time
+    current_time_pacific = datetime.datetime.now(pacific_timezone).time()
+
+    # Check if start time is reached
+    if current_time_pacific >= start_time:
+        break
+
+    # Print the current time for reference
+    print(f"Current time in Pacific Time: {current_time_pacific}")
+
+    # Sleep for 60 seconds before checking again
+    time.sleep(60)
+
+
+# Time to start program!
 
 # Get ENV variables
 EMAIL = os.environ.get("EMAIL")
@@ -47,24 +70,19 @@ next_week_box = driver.find_element(By.NAME, "weekAhead")
 next_week_box.click()
 time.sleep(1)
 
+# Wait for schedule to go live at 9:00am
 
-# Define the Pacific Time zone
-pacific_timezone = pytz.timezone('US/Pacific')
-
-# Define the target time (9:00 AM)
+# Define the target time
 target_time = datetime.time(9, 0, 0)
 
-# Loop to wait until schedule goes live
 while True:
     # Get the current time in Pacific Time
     current_time_pacific = datetime.datetime.now(pacific_timezone).time()
 
     # Check if target time is reached
     if current_time_pacific >= target_time:
+        print(f"Current time in Pacific Time: {current_time_pacific}")
         break
-
-    # Current time for reference
-    print(f"Current time in Pacific Time: {current_time_pacific}")
 
     # Wait
     time.sleep(0.5)
@@ -104,7 +122,7 @@ for cell_list in CELL_LISTS:
             # Pop up alert did not appear, continue as normal
             continue
 
-time.sleep(2)
+time.sleep(10)
 
 # Close the browser window
 driver.close()
