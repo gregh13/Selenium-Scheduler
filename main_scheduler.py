@@ -98,7 +98,7 @@ for cell_list in CELL_LISTS:
 
         try:
             # Handles alert boxes that may pop up
-            schedule_box.send_keys("Return")
+            schedule_box.send_keys(Keys.ENTER)
 
         except:
             # Pop up alert did not appear, continue as normal
