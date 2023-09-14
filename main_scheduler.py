@@ -41,10 +41,25 @@ next_week_box = driver.find_element(By.NAME, "weekAhead")
 next_week_box.click()
 time.sleep(1)
 
-# Select individual cell
-cell_box = driver.find_element(By.ID, "cell78")
-cell_box.click()
-time.sleep(3)
+
+CELL_LISTS = [
+    [99, 78],
+    [100, 79],
+    [87, 94, 101],
+    [88, 95, 102],
+    [89, 96, 103],
+    [106, 107, 108, 109, 110]
+              ]
+
+for cell_list in CELL_LISTS:
+    for cell_num in cell_list:
+        cell_id = f"cell{cell_num}"
+        cell_box = driver.find_element(By.ID, cell_id)
+        cell_box.click()
+        schedule_box = driver.find_element(By.ID, "butProviderSchedule")
+        schedule_box.click()
+
+time.sleep(2)
 
 # Close the browser window
 driver.close()
