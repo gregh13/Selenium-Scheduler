@@ -34,7 +34,7 @@ time.sleep(1)
 
 submit_box = driver.find_element(By.ID, "butSignIn")
 submit_box.click()
-time.sleep(3)
+time.sleep(1)
 
 # Navigate schedule
 next_week_box = driver.find_element(By.NAME, "weekAhead")
@@ -42,7 +42,7 @@ next_week_box.click()
 time.sleep(1)
 
 # Select individual cell
-cell_box = driver.find_element((By.ID, "cell78"))
+cell_box = driver.find_element(By.ID, "cell78")
 cell_box.click()
 time.sleep(3)
 
