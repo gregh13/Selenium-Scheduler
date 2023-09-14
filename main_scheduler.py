@@ -59,6 +59,13 @@ for cell_list in CELL_LISTS:
         schedule_box = driver.find_element(By.ID, "butProviderSchedule")
         schedule_box.click()
 
+        try:
+            # Handles alert boxes that may pop up
+            schedule_box.send_keys("Return")
+        except:
+            # exception raised is "Element Not Interactable"
+            continue
+
 time.sleep(2)
 
 # Close the browser window
