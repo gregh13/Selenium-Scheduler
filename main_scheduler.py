@@ -73,7 +73,7 @@ time.sleep(1)
 
 # Wait for schedule to go live at 9:00am
 print("Waiting for schedule to go live at 9:00am")
-
+print(f"Current time in Pacific Time: {datetime.datetime.now(pacific_timezone).time()}")
 # Define the target time
 target_time = datetime.time(9, 0, 0)
 
