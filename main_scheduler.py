@@ -33,7 +33,7 @@ while True:
     # Sleep for 60 seconds before checking again
     time.sleep(60)
 
-
+# ---------------------
 # Time to start program!
 
 # Get ENV variables
@@ -89,12 +89,13 @@ while True:
     # Wait
     time.sleep(0.5)
 
+# -----------------
 # Schedule is live!
 # Wait half a second as extra precaution, then refresh the page
 time.sleep(0.5)
 driver.refresh()
 
-# Temporary fix for time it takes page to load
+# Waiting for page to load
 while True:
     try:
         driver.find_element(By.ID, "cell99")
