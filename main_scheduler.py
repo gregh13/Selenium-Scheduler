@@ -13,7 +13,7 @@ import pytz
 import time
 
 # Create test_mode
-TEST_MODE = True
+TEST_MODE = False
 
 # Define the Pacific Time zone
 pacific_timezone = pytz.timezone('US/Pacific')
@@ -46,11 +46,11 @@ PASSWORD = os.environ.get("PASSWORD")
 WEBSITE = os.environ.get("WEBSITE")
 
 # Set the strategy to eager (doesn't wait for pictures to load)
-# options = Options()
-# options.page_load_strategy = 'eager'
+options = Options()
+options.page_load_strategy = 'eager'
 
 # Create a Chrome WebDriver instance
-driver = webdriver.Chrome()
+driver = webdriver.Chrome(options=options)
 
 # Navigate to website
 driver.get(WEBSITE)
