@@ -12,26 +12,30 @@ import datetime
 import pytz
 import time
 
+# Create test_mode
+TEST_MODE = True
+
 # Define the Pacific Time zone
 pacific_timezone = pytz.timezone('US/Pacific')
 
 # Define the start time for program
 start_time = datetime.time(8, 56, 0)
 
-while True:
-    # Get the current time in Pacific Time
-    current_time_pacific = datetime.datetime.now(pacific_timezone).time()
+if not TEST_MODE:
+    while True:
+        # Get the current time in Pacific Time
+        current_time_pacific = datetime.datetime.now(pacific_timezone).time()
 
-    # Check if start time is reached
-    if current_time_pacific >= start_time:
-        print(f"Time to start selenium: {current_time_pacific}")
-        break
+        # Check if start time is reached
+        if current_time_pacific >= start_time:
+            print(f"Time to start selenium: {current_time_pacific}")
+            break
 
-    # Print the current time for reference
-    print(f"Current time in Pacific Time: {current_time_pacific}")
+        # Print the current time for reference
+        print(f"Current time in Pacific Time: {current_time_pacific}")
 
-    # Sleep for 60 seconds before checking again
-    time.sleep(60)
+        # Sleep for 60 seconds before checking again
+        time.sleep(60)
 
 
 # Time to start program!
@@ -77,17 +81,18 @@ print(f"Current time in Pacific Time: {datetime.datetime.now(pacific_timezone).t
 # Define the target time
 target_time = datetime.time(9, 0, 0)
 
-while True:
-    # Get the current time in Pacific Time
-    current_time_pacific = datetime.datetime.now(pacific_timezone).time()
+if not TEST_MODE:
+    while True:
+        # Get the current time in Pacific Time
+        current_time_pacific = datetime.datetime.now(pacific_timezone).time()
 
-    # Check if target time is reached
-    if current_time_pacific >= target_time:
-        print(f"Current time in Pacific Time: {current_time_pacific}")
-        break
+        # Check if target time is reached
+        if current_time_pacific >= target_time:
+            print(f"Current time in Pacific Time: {current_time_pacific}")
+            break
 
-    # Wait
-    time.sleep(0.5)
+        # Wait
+        time.sleep(0.5)
 
 # Schedule is live!
 # Wait half a second as extra precaution, then refresh the page
