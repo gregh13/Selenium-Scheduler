@@ -13,7 +13,7 @@ import pytz
 import time
 
 # Create test_mode
-TEST_MODE = False
+TEST_MODE = True
 
 # Define the Pacific Time zone
 pacific_timezone = pytz.timezone('US/Pacific')
@@ -137,6 +137,7 @@ for cell_list in CELL_LISTS:
         try:
             # Handles alert boxes that may pop up
             schedule_box.send_keys(Keys.ENTER)
+            print("--Pop up appeared--")
 
         except:
             # Pop up alert did not appear, continue as normal
