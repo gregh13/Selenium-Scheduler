@@ -13,13 +13,13 @@ import pytz
 import time
 
 # Create test_mode
-TEST_MODE = True
+TEST_MODE = False
 
 # Define the Pacific Time zone
 pacific_timezone = pytz.timezone('US/Pacific')
 
 # Define the start time for program
-start_time = datetime.time(8, 56, 0)
+start_time = datetime.time(8, 55, 0)
 
 if not TEST_MODE:
     while True:
@@ -101,17 +101,9 @@ time.sleep(0.5)
 driver.refresh()
 
 # Waiting for page to load
-while True:
-    try:
-        driver.find_element(By.ID, "cell99")
-        print("Page loaded")
-        break
-    except:
-        print("Page not loaded")
-        time.sleep(.1)
+driver.implicitly_wait(10)
 
 # Page is loaded, time to book hours
-
 # Hour slots of interest
 CELL_LISTS = [
     [99, 78],
