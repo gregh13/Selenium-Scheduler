@@ -1,0 +1,2 @@
+pytz~=2023.3.post1
+selenium~=4.12.0
