@@ -136,7 +136,7 @@ for cell_list in CELL_LISTS:
             continue
 
 # Keep browser open for any necessary manual changes to be made
-time.sleep(300)
+time.sleep(600)
 
 # Close the browser window
 driver.close()
