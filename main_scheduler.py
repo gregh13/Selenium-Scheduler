@@ -13,13 +13,18 @@ import pytz
 import time
 
 # Create test_mode
-TEST_MODE = False
+TEST_MODE = True
 
 # Define the Pacific Time zone
 pacific_timezone = pytz.timezone('US/Pacific')
 
 # Define the start time for program
 start_time = datetime.time(8, 55, 0)
+
+
+filename = "schedule_log.txt"
+log_file = open(filename, "w")
+
 
 if not TEST_MODE:
     while True:
@@ -28,11 +33,11 @@ if not TEST_MODE:
 
         # Check if start time is reached
         if current_time_pacific >= start_time:
-            print(f"Time to start selenium: {current_time_pacific}")
+            log_file.write(f"Time to start selenium: {current_time_pacific}")
             break
 
         # Print the current time for reference
-        print(f"Current time in Pacific Time: {current_time_pacific}")
+        log_file.write(f"Current time in Pacific Time: {current_time_pacific}")
 
         # Sleep for 60 seconds before checking again
         time.sleep(60)
@@ -76,8 +81,8 @@ next_week_box.click()
 time.sleep(1)
 
 # Wait for schedule to go live at 9:00am
-print("Waiting for schedule to go live at 9:00am")
-print(f"Current time in Pacific Time: {datetime.datetime.now(pacific_timezone).time()}")
+log_file.write("Waiting for schedule to go live at 9:00am")
+log_file.write(f"Current time in Pacific Time: {datetime.datetime.now(pacific_timezone).time()}")
 # Define the target time
 target_time = datetime.time(9, 0, 0)
 
@@ -88,7 +93,7 @@ if not TEST_MODE:
 
         # Check if target time is reached
         if current_time_pacific >= target_time:
-            print(f"Current time in Pacific Time: {current_time_pacific}")
+            log_file.write(f"Current time in Pacific Time: {current_time_pacific}")
             break
 
         # Wait
@@ -129,7 +134,7 @@ for cell_list in CELL_LISTS:
         try:
             # Handles alert boxes that may pop up
             schedule_box.send_keys(Keys.ENTER)
-            print("--Pop up appeared--")
+            log_file.write("--Pop up appeared--")
 
         except:
             # Pop up alert did not appear, continue as normal
@@ -140,4 +145,6 @@ time.sleep(600)
 
 # Close the browser window
 driver.close()
-print("Finished")
+log_file.write("Finished")
+
+log_file.close()
