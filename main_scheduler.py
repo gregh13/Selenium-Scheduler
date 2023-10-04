@@ -13,7 +13,7 @@ import pytz
 import time
 
 # Create test_mode
-TEST_MODE = False
+TEST_MODE = True
 
 # Define the Pacific Time zone
 pacific_timezone = pytz.timezone('US/Pacific')
@@ -21,8 +21,13 @@ pacific_timezone = pytz.timezone('US/Pacific')
 # Define the start time for program
 start_time = datetime.time(8, 55, 0)
 
-
+# Define default log file
 filename = "schedule_log.txt"
+
+if TEST_MODE:
+    # Create separate test log to not overwrite previous real log
+    filename = "test_log.txt"
+
 log_file = open(filename, "w")
 
 
