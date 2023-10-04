@@ -13,7 +13,7 @@ import pytz
 import time
 
 # Create test_mode
-TEST_MODE = True
+TEST_MODE = False
 
 # Define the Pacific Time zone
 pacific_timezone = pytz.timezone('US/Pacific')
@@ -32,7 +32,7 @@ if not TEST_MODE:
         current_time_pacific = datetime.datetime.now(pacific_timezone).time()
 
         # Check if start time is reached
-        if current_time_pacific >= start_time:
+        if current_time_pacific >= start_time and current_time_pacific.hour < 10:
             log_file.write(f"Time to start selenium: {current_time_pacific}")
             break
 
