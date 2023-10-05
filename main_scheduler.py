@@ -44,6 +44,11 @@ print(f"{LINEBREAK}\n           Selenium Hour Scheduler Log\n{LINEBREAK}\n")
 
 # While loop with longer sleep period when time to schedule hours is further away
 if not TEST_MODE:
+
+    # For improved output and logging
+    log_file.write(f"Waiting until it's near {start_time} to schedule hours...\n")
+    print(f"Waiting until it's near {start_time} to schedule hours...")
+
     while True:
         # Get the current time in Pacific Time
         current_time_pacific = datetime.datetime.now(pacific_timezone).time()
