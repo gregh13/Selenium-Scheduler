@@ -153,12 +153,16 @@ for cell_list in CELL_LISTS:
             # Pop up alert did not appear, continue as normal
             continue
 
+# Log update
+log_file.write("Finished scheduling\n")
+print("Finished scheduling")
+
 # Keep browser open for any necessary manual changes to be made
 time.sleep(600)
 
 # Close the browser window
 driver.close()
-log_file.write("Finished\n")
-print("Finished")
+log_file.write("Driver closed\n")
+print("Driver closed")
 
 log_file.close()
