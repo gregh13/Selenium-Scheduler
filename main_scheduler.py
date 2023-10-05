@@ -89,6 +89,11 @@ next_week_box = driver.find_element(By.NAME, "weekAhead")
 next_week_box.click()
 time.sleep(1)
 
+# Get current number of hours scheduled
+current_hours = driver.find_element(By.ID, "lblScheduledHours").text
+print("\nCurrent number of hours scheduled: ", current_hours)
+log_file.write(f"\nCurrent number of hours scheduled: {current_hours}\n")
+
 # Wait for schedule to go live at 9:00am
 log_file.write("Waiting for schedule to go live at 9:00am\n")
 print("Waiting for schedule to go live at 9:00am")
@@ -156,6 +161,15 @@ for cell_list in CELL_LISTS:
 # Log update
 log_file.write("Finished scheduling\n")
 print("Finished scheduling")
+
+# Check updated hours scheduled
+updated_hours = driver.find_element(By.ID, "lblScheduledHours").text
+print("\nUpdated number of hours scheduled: ", updated_hours)
+log_file.write(f"\nUpdated number of hours scheduled: {updated_hours}\n")
+
+# Calculate & output number of new hours added
+print(f"Hours added: {int(updated_hours) - int(current_hours)}\n")
+log_file.write(f"Hours added: {int(updated_hours) - int(current_hours)}\n")
 
 # Keep browser open for any necessary manual changes to be made
 time.sleep(600)
