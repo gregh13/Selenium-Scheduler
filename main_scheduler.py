@@ -16,7 +16,7 @@ import time
 LINEBREAK = "-------------------------------------------------"
 
 # Create test_mode
-TEST_MODE = False
+TEST_MODE = True
 
 # Define the Pacific Time zone
 pacific_timezone = pytz.timezone('US/Pacific')
@@ -60,8 +60,8 @@ if not TEST_MODE:
             break
 
         # Print the current time for reference
-        log_file.write(f"Current time in Pacific Time: {current_time_pacific}\n")
-        print(f"Current time in Pacific Time: {current_time_pacific}")
+        log_file.write(f"Current Pacific Time: {current_time_pacific}\n")
+        print(f"Current Pacific Time: {current_time_pacific}")
 
         # Sleep for 60 seconds before checking again
         time.sleep(60)
@@ -109,13 +109,15 @@ current_hours = driver.find_element(By.ID, "lblScheduledHours").text
 print(f"{LINEBREAK}\nCurrent number of hours scheduled: {current_hours}")
 log_file.write(f"{LINEBREAK}\nCurrent number of hours scheduled: {current_hours}\n")
 
-# Wait for schedule to go live at 9:00am
-log_file.write("Waiting for schedule to go live at 9:00am\n")
-print("Waiting for schedule to go live at 9:00am")
-log_file.write(f"Current time in Pacific Time: {datetime.datetime.now(pacific_timezone).time()}\n")
-print(f"Current time in Pacific Time: {datetime.datetime.now(pacific_timezone).time()}")
 # Define the target time
 target_time = datetime.time(9, 0, 0)
+
+# Wait for schedule to go live at target time
+log_file.write(f"Waiting for schedule to go live at {target_time}\n")
+print(f"Waiting for schedule to go live at {target_time}")
+
+log_file.write(f"Current Pacific Time: {datetime.datetime.now(pacific_timezone).time()}\n")
+print(f"Current Pacific Time: {datetime.datetime.now(pacific_timezone).time()}")
 
 if not TEST_MODE:
     while True:
@@ -124,8 +126,8 @@ if not TEST_MODE:
 
         # Check if target time is reached
         if current_time_pacific >= target_time:
-            log_file.write(f"Current time in Pacific Time: {current_time_pacific}\n")
-            print(f"Current time in Pacific Time: {current_time_pacific}")
+            log_file.write(f"Current Pacific Time: {current_time_pacific}\n")
+            print(f"Current Pacific Time: {current_time_pacific}")
             break
 
         # Wait
@@ -139,6 +141,10 @@ driver.refresh()
 
 # Waiting for page to load
 driver.implicitly_wait(10)
+
+# Log process start
+log_file.write(f"\nBegin scheduling\n")
+print(f"\nBegin scheduling")
 
 # Page is loaded, time to book hours
 # Hour slots of interest
