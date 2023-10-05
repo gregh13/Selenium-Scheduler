@@ -24,8 +24,9 @@ start_time = datetime.time(8, 55, 0)
 # Define default log file
 filename = "schedule_log.txt"
 
-if TEST_MODE:
-    # Create separate test log to not overwrite previous real log
+# Give user option to save to test log
+save_to_test_log = input("Save to test log file? Type y/n: ")
+if save_to_test_log.lower() in ["y", "yes"]:
     filename = "test_log.txt"
 
 log_file = open(filename, "w")
