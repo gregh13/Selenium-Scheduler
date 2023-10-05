@@ -12,7 +12,7 @@ import datetime
 import pytz
 import time
 
-# For prettier output
+# Used to make output & log files easier to read
 LINEBREAK = "----------------------------------------------------"
 
 # Create test_mode
