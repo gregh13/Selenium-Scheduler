@@ -42,7 +42,7 @@ log_file = open(filename, "w")
 log_file.write(f"{LINEBREAK}\n           Selenium Hour Scheduler Log\n{LINEBREAK}\n\n")
 print(f"{LINEBREAK}\n           Selenium Hour Scheduler Log\n{LINEBREAK}\n")
 
-
+# While loop with longer sleep period when time to schedule hours is further away
 if not TEST_MODE:
     while True:
         # Get the current time in Pacific Time
