@@ -32,8 +32,14 @@ save_to_test_log = input("Save to test log file? Type y/n: ")
 if save_to_test_log.lower() in ["y", "yes"]:
     filename = "test_log.txt"
 
+# Useful to user
 print(f"\nLog will be saved to {filename}\n")
+
+# Begin log process
 log_file = open(filename, "w")
+
+# Write log file header
+log_file.write("~~~~Selenium Hour Scheduler Log~~~~\n\n")
 
 
 if not TEST_MODE:
