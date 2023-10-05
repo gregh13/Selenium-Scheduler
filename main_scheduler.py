@@ -12,6 +12,9 @@ import datetime
 import pytz
 import time
 
+# For prettier output
+LINEBREAK = "----------------------------------------------------"
+
 # Create test_mode
 TEST_MODE = False
 
@@ -91,8 +94,8 @@ time.sleep(1)
 
 # Get current number of hours scheduled
 current_hours = driver.find_element(By.ID, "lblScheduledHours").text
-print("\nCurrent number of hours scheduled: ", current_hours)
-log_file.write(f"\nCurrent number of hours scheduled: {current_hours}\n")
+print(f"{LINEBREAK}\nCurrent number of hours scheduled: {current_hours}")
+log_file.write(f"{LINEBREAK}\nCurrent number of hours scheduled: {current_hours}\n")
 
 # Wait for schedule to go live at 9:00am
 log_file.write("Waiting for schedule to go live at 9:00am\n")
@@ -164,8 +167,8 @@ print("Finished scheduling")
 
 # Check updated hours scheduled
 updated_hours = driver.find_element(By.ID, "lblScheduledHours").text
-print("\nUpdated number of hours scheduled: ", updated_hours)
-log_file.write(f"\nUpdated number of hours scheduled: {updated_hours}\n")
+print(f"{LINEBREAK}\nUpdated number of hours scheduled: {updated_hours}")
+log_file.write(f"{LINEBREAK}\nUpdated number of hours scheduled: {updated_hours}\n")
 
 # Calculate & output number of new hours added
 print(f"Hours added: {int(updated_hours) - int(current_hours)}\n")
