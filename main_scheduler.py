@@ -13,7 +13,7 @@ import pytz
 import time
 
 # Create test_mode
-TEST_MODE = True
+TEST_MODE = False
 
 # Define the Pacific Time zone
 pacific_timezone = pytz.timezone('US/Pacific')
@@ -46,7 +46,7 @@ if not TEST_MODE:
 
         # Print the current time for reference
         log_file.write(f"Current time in Pacific Time: {current_time_pacific}\n")
-        print(f"Time to start selenium: {current_time_pacific}")
+        print(f"Current time in Pacific Time: {current_time_pacific}")
 
         # Sleep for 60 seconds before checking again
         time.sleep(60)
