@@ -13,7 +13,7 @@ import pytz
 import time
 
 # Used to make output & log files easier to read
-LINEBREAK = "----------------------------------------------------"
+LINEBREAK = "-------------------------------------------------"
 
 # Create test_mode
 TEST_MODE = False
@@ -38,8 +38,9 @@ print(f"\nLog will be saved to {filename}\n")
 # Begin log process
 log_file = open(filename, "w")
 
-# Write log file header
-log_file.write("~~~~Selenium Hour Scheduler Log~~~~\n\n")
+# Write log file header, centered according to Linebreak length
+log_file.write(f"{LINEBREAK}\n           Selenium Hour Scheduler Log\n{LINEBREAK}\n\n")
+print(f"{LINEBREAK}\n           Selenium Hour Scheduler Log\n{LINEBREAK}\n")
 
 
 if not TEST_MODE:
