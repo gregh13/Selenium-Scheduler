@@ -29,6 +29,7 @@ save_to_test_log = input("Save to test log file? Type y/n: ")
 if save_to_test_log.lower() in ["y", "yes"]:
     filename = "test_log.txt"
 
+print(f"\nLog will be saved to {filename}\n")
 log_file = open(filename, "w")
 
 
@@ -40,10 +41,12 @@ if not TEST_MODE:
         # Check if start time is reached
         if current_time_pacific >= start_time and current_time_pacific.hour < 10:
             log_file.write(f"Time to start selenium: {current_time_pacific}\n")
+            print(f"Time to start selenium: {current_time_pacific}")
             break
 
         # Print the current time for reference
         log_file.write(f"Current time in Pacific Time: {current_time_pacific}\n")
+        print(f"Time to start selenium: {current_time_pacific}")
 
         # Sleep for 60 seconds before checking again
         time.sleep(60)
@@ -88,7 +91,9 @@ time.sleep(1)
 
 # Wait for schedule to go live at 9:00am
 log_file.write("Waiting for schedule to go live at 9:00am\n")
+print("Waiting for schedule to go live at 9:00am")
 log_file.write(f"Current time in Pacific Time: {datetime.datetime.now(pacific_timezone).time()}\n")
+print(f"Current time in Pacific Time: {datetime.datetime.now(pacific_timezone).time()}")
 # Define the target time
 target_time = datetime.time(9, 0, 0)
 
@@ -100,6 +105,7 @@ if not TEST_MODE:
         # Check if target time is reached
         if current_time_pacific >= target_time:
             log_file.write(f"Current time in Pacific Time: {current_time_pacific}\n")
+            print(f"Current time in Pacific Time: {current_time_pacific}")
             break
 
         # Wait
@@ -141,6 +147,7 @@ for cell_list in CELL_LISTS:
             # Handles alert boxes that may pop up
             schedule_box.send_keys(Keys.ENTER)
             log_file.write("--Pop up appeared--\n")
+            print("--Pop up appeared--")
 
         except:
             # Pop up alert did not appear, continue as normal
@@ -152,5 +159,6 @@ time.sleep(600)
 # Close the browser window
 driver.close()
 log_file.write("Finished\n")
+print("Finished")
 
 log_file.close()
