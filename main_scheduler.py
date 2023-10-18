@@ -3,8 +3,8 @@ import os
 
 # Selenium
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.alert import Alert
 from selenium.webdriver.chrome.options import Options
 
 # Time precision and waiting
@@ -16,7 +16,7 @@ import time
 LINEBREAK = "-------------------------------------------------"
 
 # Create test_mode
-TEST_MODE = True
+TEST_MODE = False
 
 # Define the Pacific Time zone
 pacific_timezone = pytz.timezone('US/Pacific')
@@ -171,7 +171,7 @@ for cell_list in CELL_LISTS:
 
         try:
             # Handles alert boxes that may pop up
-            schedule_box.send_keys(Keys.ENTER)
+            Alert(driver).accept()
             log_file.write("--Pop up appeared--\n")
             print("--Pop up appeared--")
 
