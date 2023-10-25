@@ -140,11 +140,11 @@ time.sleep(0.5)
 driver.refresh()
 
 # Waiting for page to load
-driver.implicitly_wait(10)
+driver.implicitly_wait(time_to_wait=10)
 
 # Log process start
-log_file.write(f"\nBegin scheduling\n")
-print(f"\nBegin scheduling")
+log_file.write(f"\nBegin scheduling\n-------------\n")
+print(f"\nBegin scheduling\n-------------")
 
 # Page is loaded, time to book hours
 # Hour slots of interest
@@ -160,6 +160,9 @@ CELL_LISTS = [
 # Loop through list to attempt to schedule hours
 for cell_list in CELL_LISTS:
     for cell_num in cell_list:
+        # Wait for page to be reachable after potential popup alert
+        driver.implicitly_wait(10)
+
         # Select cell
         cell_id = f"cell{cell_num}"
         cell_box = driver.find_element(By.ID, cell_id)
@@ -171,17 +174,19 @@ for cell_list in CELL_LISTS:
 
         try:
             # Handles alert boxes that may pop up
-            Alert(driver).accept()
-            log_file.write("--Pop up appeared--\n")
-            print("--Pop up appeared--")
+            alert = Alert(driver)
+            alert_text = alert.text
+            alert.accept()
+            log_file.write(f"Pop up appeared for cell {cell_num}--> {alert_text}\n")
+            print(f"Pop up appeared for cell {cell_num}--> {alert_text}")
 
         except:
             # Pop up alert did not appear, continue as normal
             continue
 
 # Log update
-log_file.write("Finished scheduling\n")
-print("Finished scheduling")
+log_file.write("-------------\nFinished scheduling\n")
+print("-------------\nFinished scheduling")
 
 # Check updated hours scheduled
 updated_hours = driver.find_element(By.ID, "lblScheduledHours").text
