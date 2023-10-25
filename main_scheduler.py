@@ -21,11 +21,14 @@ TEST_MODE = False
 # Define the Pacific Time zone
 pacific_timezone = pytz.timezone('US/Pacific')
 
+# Get date for log file
+date = datetime.date.today()
+
 # Define the start time for program
 start_time = datetime.time(8, 55, 0)
 
 # Define default log file
-filename = "schedule_log.txt"
+filename = f"schedule-log-{date}.txt"
 
 # Give user option to save to test log
 save_to_test_log = input("Save to test log file? Type y/n: ")
@@ -190,8 +193,13 @@ print("-------------\nFinished scheduling")
 
 # Check updated hours scheduled
 updated_hours = driver.find_element(By.ID, "lblScheduledHours").text
-print(f"{LINEBREAK}\nUpdated number of hours scheduled: {updated_hours}")
-log_file.write(f"{LINEBREAK}\nUpdated number of hours scheduled: {updated_hours}\n")
+
+# Log before and after hour comparison
+print(f"{LINEBREAK}\nPrevious number of hours scheduled: {current_hours}")
+log_file.write(f"{LINEBREAK}\nPrevious number of hours scheduled: {current_hours}\n")
+
+print(f"Updated number of hours scheduled: {updated_hours}")
+log_file.write(f"Updated number of hours scheduled: {updated_hours}\n")
 
 # Calculate & output number of new hours added
 print(f"Hours added: {int(updated_hours) - int(current_hours)}\n")
