@@ -164,7 +164,7 @@ CELL_LISTS = [
 for cell_list in CELL_LISTS:
     for cell_num in cell_list:
         # Wait for page to be reachable after potential popup alert
-        driver.implicitly_wait(10)
+        driver.implicitly_wait(1)
 
         # Select cell
         cell_id = f"cell{cell_num}"
@@ -175,6 +175,7 @@ for cell_list in CELL_LISTS:
         schedule_box = driver.find_element(By.ID, "butProviderSchedule")
         schedule_box.click()
 
+        time.sleep(0.1)
         try:
             # Handles alert boxes that may pop up
             alert = Alert(driver)
