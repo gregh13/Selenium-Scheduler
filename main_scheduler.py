@@ -15,8 +15,13 @@ import time
 # Used to make output & log files easier to read
 LINEBREAK = "-------------------------------------------------"
 
-# Create test_mode
+# Initialize Test Mode
 TEST_MODE = False
+
+# Give user option to run in Test Mode
+mode_input = input("Run in Test Mode? Type y/n: ")
+if mode_input == 'y':
+    TEST_MODE = True
 
 # Define the Pacific Time zone
 pacific_timezone = pytz.timezone('US/Pacific')
@@ -30,9 +35,8 @@ start_time = datetime.time(8, 55, 0)
 # Define default log file
 filename = f"schedule-log-{date}.txt"
 
-# Give user option to save to test log
-save_to_test_log = input("Save to test log file? Type y/n: ")
-if save_to_test_log.lower() in ["y", "yes"]:
+# Save to test log when in Test Mode
+if TEST_MODE:
     filename = "test_log.txt"
 
 # Useful to user
@@ -149,23 +153,49 @@ driver.implicitly_wait(time_to_wait=10)
 log_file.write(f"\nBegin scheduling\n-------------\n")
 print(f"\nBegin scheduling\n-------------")
 
-# Page is loaded, time to book hours
-# Hour slots of interest
+
+# Alert popup triggers vary greatly, create default alert handler
+def try_alert(time_sleep: float = 0.1, retries: int = 1, attempt: int = 0):
+    try:
+        # Handles alert boxes that may pop up
+        alert = Alert(driver)
+        alert_text = alert.text
+        alert.accept()
+        log_file.write(f"Pop up appeared for cell {cell_num}--> {alert_text}\n")
+        print(f"Pop up appeared for cell {cell_num}--> {alert_text}")
+        return
+    except:
+        # Pop up alert did not appear, continue as normal
+        pass
+
+    if attempt < retries:
+        time.sleep(time_sleep)
+        try_alert(time_sleep, retries, attempt+1)
+
+    return
+
+
+# Original slots of interest
+# CELL_LISTS = [
+#     [99, 78],
+#     [100, 79],
+#     [87, 94, 101],
+#     [88, 95, 102],
+#     [89, 96, 103],
+#     [106, 107, 108, 109, 110]
+#               ]
+
+# Current Cell List
 CELL_LISTS = [
-    [99, 78],
-    [100, 79],
-    [87, 94, 101],
     [88, 95, 102],
+    [100, 101],
     [89, 96, 103],
-    [106, 107, 108, 109, 110]
-              ]
+    [109, 110]
+]
 
 # Loop through list to attempt to schedule hours
 for cell_list in CELL_LISTS:
     for cell_num in cell_list:
-        # Wait for page to be reachable after potential popup alert
-        driver.implicitly_wait(1)
-
         # Select cell
         cell_id = f"cell{cell_num}"
         cell_box = driver.find_element(By.ID, cell_id)
@@ -175,18 +205,8 @@ for cell_list in CELL_LISTS:
         schedule_box = driver.find_element(By.ID, "butProviderSchedule")
         schedule_box.click()
 
-        time.sleep(0.1)
-        try:
-            # Handles alert boxes that may pop up
-            alert = Alert(driver)
-            alert_text = alert.text
-            alert.accept()
-            log_file.write(f"Pop up appeared for cell {cell_num}--> {alert_text}\n")
-            print(f"Pop up appeared for cell {cell_num}--> {alert_text}")
-
-        except:
-            # Pop up alert did not appear, continue as normal
-            continue
+        # Protect against alert messages
+        try_alert(time_sleep=0.1, retries=1, attempt=0)
 
 # Log update
 log_file.write("-------------\nFinished scheduling\n")
